@@ -21,7 +21,7 @@ const GameStage2 = ({route}) => {
   const [token,setToken] = useState(null);
   const { scores, setScores,username } = useAuth();
 
-
+  const [disableButton ,setDisableButton] = useState(true);
   const { typeGame } = route.params;
   const navigation = useNavigation();
 
@@ -64,12 +64,13 @@ const GameStage2 = ({route}) => {
       }
     };
     fetchData();
+    setDisableButton(true);
   }, [token]);
 
   const handleResultUpdate = (id, newResult) => {
     const updatedMatchs = matchs.map(match => {
       if (match.id === id) {
-        return { ...match, resultat: newResult,etat:"Gains Potentiel 100 000" };
+        return { ...match, resultat: newResult,etat:"Gains Potentiel 100 000 €" };
       }
       return match;
     });
@@ -121,7 +122,7 @@ const GameStage2 = ({route}) => {
           } catch (error) {
             console.error(error);
           }
-          
+          setDisableButton(false);
         }
         
 
@@ -146,13 +147,16 @@ const GameStage2 = ({route}) => {
           keyExtractor={item => item.id}
         />
       </View>
-      <View style={{alignItems:'center'}}>
+      {disableButton && (
+        <View style={{alignItems:'center'}}>
             <TouchableOpacity style={styles.containerbtn}
             onPress={handlePress}
             >  
               <Text style={styles.text2}>Jouer</Text>
             </TouchableOpacity>
           </View> 
+      )}
+      
     </Background>
   );
 }

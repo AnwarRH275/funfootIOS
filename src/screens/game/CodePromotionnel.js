@@ -69,7 +69,7 @@ const CodePromotionnel = () => {
       }
 
     }else{
-      Alert.alert('Coupons Invalid !!');
+     // Alert.alert('Coupons Invalid !!');
     }
 
     if(codeP.length == 7 && authorisation){

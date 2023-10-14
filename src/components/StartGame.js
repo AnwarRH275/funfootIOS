@@ -33,13 +33,13 @@ const StartGame = ({setStartGame,banner,type}) => {
         if(item['username']==username){
          
          if(item['etat'].split(' ')[2] == '100'){
-          Alert.alert('Félicitation vous avez gagner 100 000');
+          Alert.alert('Félicitation vous avez gagner 100 000 €');
          }else{
           if(item['etat'].split(' ')[2] == '5'){
-            Alert.alert('Félicitation vous avez gagner 5 000');
+            Alert.alert('Félicitation vous avez gagner 5 000 €');
           }else{
             if(item['etat'].split(' ')[2] == '10'){
-              Alert.alert('Félicitation vous avez gagner 10 000');
+              Alert.alert('Félicitation vous avez gagner 10 000 €');
             }else{
               Alert.alert('Félicitation vous avez gagner '+item['etat'].split(' ')[2])
             }
@@ -72,11 +72,16 @@ const StartGame = ({setStartGame,banner,type}) => {
     <View style={{flexDirection:'column',justifyContent:'center'}}>
    
       <View style={styles.container}>
-           <BannerAdmob />
+           {/* <BannerAdmob /> */}
 
       {descriptionGame != '' && <InformationGame text={descriptionGame} size={50}/>  } 
     {type == 'stage1' && (
-          <View style={{width:"80%"}}> 
+        
+        <View style={{width:"80%"}}> 
+         <View >
+          <BannerAdmob />
+        </View>
+
           <Image style={imageStyle} source={banner} />
           {descriptionGame2 != '' && <InformationGame text={descriptionGame2} size={70}/>  } 
        </View>
@@ -96,11 +101,13 @@ const StartGame = ({setStartGame,banner,type}) => {
       setStartGame != ROUTES.GAME_S3 && setStartGame != ROUTES.GAME_S4 && (
       <View>
           {/**/}
-      
+          <View   style={{ position:'relative',left:"15%", width:"80%"}}>
+          <BannerAdmob />
+          </View>
           <NavigationCat setStartGame={setStartGame} />
           <View style={{position:"relative",resizeMode: 'cover',justifyContent:'center',alignSelf:'center',marginVertical:20}}>
            
-           </View>
+          </View>
       </View>
       )}
 
@@ -108,10 +115,12 @@ const StartGame = ({setStartGame,banner,type}) => {
       setStartGame != ROUTES.GAME_S3 && setStartGame != ROUTES.GAME_S4 && scores >= 100 && (
       <View>
           {/* <InformationGame text={descriptionGame}/> */}
-          
+          <View  style={{ position:'relative',left:"10%", width:"80%"}}>
+          <BannerAdmob />
+          </View>
           <NavigationCat setStartGame={setStartGame} />
           <View style={{flex:1,position:"relative",justifyContent:'center',alignSelf:'center',marginVertical:10}}>
-            <BannerAdmob />
+           
            </View>
       </View>
       )}
@@ -120,10 +129,14 @@ const StartGame = ({setStartGame,banner,type}) => {
       setStartGame != ROUTES.GAME_S3 && setStartGame != ROUTES.GAME_S4 && scores <= 100 && (
       <View style={styles.content}>
          <Image style={styles.imageC} source={condition100} />
-        <View style={{flex:1,position:"relative",justifyContent:'center',alignSelf:'center',marginVertical:10}}>
+         <View style={{flex:1,position:"relative",
+         top:10,
+        //  resizeMode: 'cover',
+         marginVertical:10,
+         left:"15%"
+         }}>
             <BannerAdmob />
            </View>
-         
       </View>
       )}
      
@@ -133,14 +146,16 @@ const StartGame = ({setStartGame,banner,type}) => {
       setStartGame == ROUTES.GAME_S3 && setStartGame != ROUTES.GAME_S4 && scores >= 150 && (
       <View>
           {/* <InformationGame text={descriptionGame}/> */}
-          
+          <View style={{ position:'relative',left:"10%", width:"80%"}} >
+          <BannerAdmob />
+          </View>
           <NavigationCat setStartGame={setStartGame} />
           <View style={{flex:1,position:"relative",
           top:10,
            resizeMode: 'cover',
            justifyContent:'center',alignSelf:'center',
           marginVertical:10}}>
-            <BannerAdmob />
+      
            </View>
       </View>
       )}
@@ -150,14 +165,14 @@ const StartGame = ({setStartGame,banner,type}) => {
       setStartGame == ROUTES.GAME_S3 && setStartGame != ROUTES.GAME_S4 && scores <= 150 && (
       <View style={styles.content}>
         <Image style={styles.imageC} source={condition150} />
-         <View style={{flex:1,position:"relative",
-         justifyContent:'center',alignSelf:'center',
-        top:10,
-          resizeMode: 'cover',
-         marginVertical:10}}>
+        <View style={{flex:1,position:"relative",
+         top:10,
+        //  resizeMode: 'cover',
+         marginVertical:10,
+         left:"15%"
+         }}>
             <BannerAdmob />
            </View>
-          
       </View>
       )}
 
@@ -165,10 +180,12 @@ const StartGame = ({setStartGame,banner,type}) => {
       setStartGame != ROUTES.GAME_S3 && setStartGame == ROUTES.GAME_S4 && scores >= 1000 && (
       <View>
           {/* <InformationGame text={descriptionGame}/> */}
-          
+          <View style={{ position:'relative',left:"10%", width:"80%"}} >
+          <BannerAdmob />
+          </View>
           <NavigationCat setStartGame={setStartGame} />
-          <View style={{flex:1,position:"relative",marginVertical:10}}>
-            <BannerAdmob />
+          <View style={{flex:1,position:"relative",marginVertical:10,left:"22%"}}>
+           
            </View>
       </View>
       )}
@@ -178,9 +195,11 @@ const StartGame = ({setStartGame,banner,type}) => {
       <View style={styles.content}>
          <Image style={styles.imageC} source={condition1000} />
          <View style={{flex:1,position:"relative",
-         top:10,
-         resizeMode: 'cover',
-         marginVertical:10}}>
+              top:10,
+              //  resizeMode: 'cover',
+              marginVertical:10,
+              left:"15%"
+              }}>
             <BannerAdmob />
            </View>
          

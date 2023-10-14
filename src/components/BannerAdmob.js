@@ -8,10 +8,10 @@ const adUnitId = __DEV__ ? TestIds.BANNER :  'ca-app-pub-6300362813805470/234114
 
 const BannerAdmob = () => {
   return (
-    <View>
+    <View  style={{ position:'relative',left:"-15%", width:"50%"}}>
     <BannerAd
       unitId={adUnitId}
-      size={BannerAdSize.FULL_BANNER}
+      size={BannerAdSize.ADAPTIVE_BANNER}
     
     />
     </View>

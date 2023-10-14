@@ -18,16 +18,12 @@ const adsList=[0,1,2,3]
 const ads=[]
 adsList.forEach(()=>ads.push(InterstitialAd.createForAdRequest(adUnitId, {
   requestNonPersonalizedAdsOnly: true,
-})))
+})));
 // const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
 //   requestNonPersonalizedAdsOnly: true,
 // });
 
 const GameStage1 = ({route}) => {
-
-
-
-
 
   const [matchs,setMatchs] = useState(null);
   const [token,setToken] = useState(null);
@@ -37,10 +33,9 @@ const GameStage1 = ({route}) => {
   const { typeGame } = route.params;
   const navigation = useNavigation();
   const [adsCount, setAdsCount] = useState(0);
-
+  const [disableButton ,setDisableButton] = useState(true);
   useEffect(() => {
-    
-   
+
     // Start loading the interstitial straight away
     ads.forEach(ad => ad.load());
 
@@ -98,12 +93,13 @@ const GameStage1 = ({route}) => {
       }
     };
     fetchData();
+    setDisableButton(true);
   }, [token]);
 
   const handleResultUpdate = (id, newResult) => {
     const updatedMatchs = matchs.map(match => {
       if (match.id === id) {
-        return { ...match, resultat: newResult,etat:"Gains Potentiel" };
+        return { ...match, resultat: newResult,etat:"Gains Potentiel 500 €" };
       }
       return match;
     });
@@ -143,6 +139,7 @@ const GameStage1 = ({route}) => {
           setScores(scores+1);
           //console.log(matchs)
           try {
+            setDisableButton(false);
             const response = await axiosInstance.post('/mesgrid/mesgrids/1/'+username, matchs, {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -183,13 +180,14 @@ const GameStage1 = ({route}) => {
           keyExtractor={item => item.id}
         />
       </View>
-      <View style={{alignItems:'center'}}>
+      {disableButton && (<View style={{alignItems:'center'}}>
             <TouchableOpacity style={styles.containerbtn}
             onPress={handlePress}
             >  
               <Text style={styles.text2}>Jouer</Text>
             </TouchableOpacity>
-          </View> 
+          </View> )}
+      
     </Background>
   );
 }
