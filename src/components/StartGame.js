@@ -33,15 +33,15 @@ const StartGame = ({setStartGame,banner,type}) => {
         if(item['username']==username){
          
          if(item['etat'].split(' ')[2] == '100'){
-          Alert.alert('Félicitation vous avez gagner 100 000 €');
+          Alert.alert('Félicitation vous avez gagner 100 000 ER');
          }else{
           if(item['etat'].split(' ')[2] == '5'){
-            Alert.alert('Félicitation vous avez gagner 5 000 €');
+            Alert.alert('Félicitation vous avez gagner 5 000 ER');
           }else{
             if(item['etat'].split(' ')[2] == '10'){
-              Alert.alert('Félicitation vous avez gagner 10 000 €');
+              Alert.alert('Félicitation vous avez gagner 10 000 ER');
             }else{
-              Alert.alert('Félicitation vous avez gagner '+item['etat'].split(' ')[2])
+              Alert.alert('Félicitation vous avez gagner '+item['etat'].split(' ')[2]+' ER')
             }
           }
           

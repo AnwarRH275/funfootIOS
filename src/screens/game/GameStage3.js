@@ -14,16 +14,41 @@ import { useAuth } from '../../context/AuthProvider';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Switch2 from '../../components/Switch2';
+import { InterstitialAd, AdEventType, TestIds, InterstitialAdManager } from 'react-native-google-mobile-ads';
 
-const GameStage2 = ({route}) => {
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6300362813805470/9752729993';
+const adsList=[0,1,2,3]
+const ads=[]
+adsList.forEach(()=>ads.push(InterstitialAd.createForAdRequest(adUnitId, {
+  requestNonPersonalizedAdsOnly: true,
+})));
+const GameStage3 = ({route}) => {
   const [selectedIndex, setSelectedIndex] = useState(true);
   const [matchs,setMatchs] = useState(null);
   const [token,setToken] = useState(null);
   const { scores, setScores,username } = useAuth();
   const [disableButton ,setDisableButton] = useState(true);
+  const [adsCount, setAdsCount] = useState(0);
 
   const { typeGame } = route.params;
   const navigation = useNavigation();
+
+
+  useEffect(() => {
+
+    // Start loading the interstitial straight away
+    ads.forEach(ad => ad.load());
+
+    // Unsubscribe from events on unmount
+  }, []);
+   
+  ads.forEach( (ad, index)=> {
+    ad.addAdEventListener(AdEventType.CLOSED, () => {
+      if(index<3){
+        ads[index+1].show();
+      }
+    });
+  });
 
   useEffect(() => {
 
@@ -70,7 +95,7 @@ const GameStage2 = ({route}) => {
   const handleResultUpdate = (id, newResult) => {
     const updatedMatchs = matchs.map(match => {
       if (match.id === id) {
-        return { ...match, resultat: newResult,etat:"Gains Potentiel 10 000 € " };
+        return { ...match, resultat: newResult,etat:"Gains Potentiel 10 000 ER " };
       }
       return match;
     });
@@ -117,7 +142,9 @@ const GameStage2 = ({route}) => {
             });
             //console.log(response.data);
 
-            Alert.alert('Accepté !');
+            Alert.alert(' Accepté !');
+            ads[0].show();
+            setAdsCount(adsCount+1);
             //navigation.goBack();
             navigation.navigate(ROUTES.HOME);
           } catch (error) {
@@ -231,4 +258,4 @@ const styles = StyleSheet.create({
    },
 });
 
-export default GameStage2;
+export default GameStage3;

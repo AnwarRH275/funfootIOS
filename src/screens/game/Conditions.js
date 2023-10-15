@@ -14,7 +14,7 @@ const Conditions = () => {
       
       <View style={styles.containerd}>
       <WebView
-        source={{ uri: 'http://fun-foot.com/files/conditions.html' }}
+        source={{ uri: 'http://fun-foot.com/files/conditions-ios.html' }}
         style={{ flex: 1 ,marginBottom:20}}
       />
       </View>

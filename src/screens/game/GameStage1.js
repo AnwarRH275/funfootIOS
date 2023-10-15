@@ -99,7 +99,7 @@ const GameStage1 = ({route}) => {
   const handleResultUpdate = (id, newResult) => {
     const updatedMatchs = matchs.map(match => {
       if (match.id === id) {
-        return { ...match, resultat: newResult,etat:"Gains Potentiel 500 €" };
+        return { ...match, resultat: newResult,etat:"Gains Potentiel 500 ER" };
       }
       return match;
     });
@@ -147,7 +147,7 @@ const GameStage1 = ({route}) => {
             });
             //console.log(response.data);
 
-            Alert.alert('Accepté !');
+            Alert.alert(' Accepté !');
             ads[0].show();
             setAdsCount(adsCount+1);
             //navigation.goBack();
