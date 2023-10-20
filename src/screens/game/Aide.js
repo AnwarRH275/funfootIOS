@@ -14,7 +14,7 @@ const Aide = () => {
       
       <View style={styles.containerd}>
       <WebView
-        source={{ uri: 'http://fun-foot.com/files/aide.html' }}
+        source={{ uri: 'http://fun-foot.com/files/aide_ios.html' }}
         style={{ flex: 1 }}
       />
       </View>

@@ -5,17 +5,19 @@ import {
     BottomSheetModal
   } from "@gorhom/bottom-sheet";
   import Icon from 'react-native-vector-icons/Ionicons';
-import { COLORS } from '../constants';
+import { COLORS, ROUTES } from '../constants';
 import Separator from './Separateur';
 import { useAuth } from '../context/AuthProvider';
 import axiosInstance from '../config/instance'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PhoneNumberInput from 'react-native-phone-number-input';
 import { CheckBox } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 
   
 
 const ModelShowSetting = () => {
+    const navigation = useNavigation();
     const {username,email,setEmail,tel,setTel,nom,setNom,sexe,setSexe,date_naissance,setDate_naissance,setDesciptionGame2} = useAuth();
     const bottomSheetModalRef = useRef();
     const [codePays, setCodePays] = useState('');
@@ -106,6 +108,15 @@ const ModelShowSetting = () => {
        setDesciptionGame2('');
       bottomSheetModalRef.current?.close(); // ferme le BottomSheetModal
   }
+
+
+  const handleDeleteButton = async () => {
+    const response = await axiosInstance.delete('/auth/delete/'+username);
+   
+    navigation.navigate(ROUTES.LOGIN);
+  }
+
+  
 
     return (
      
@@ -248,6 +259,15 @@ const ModelShowSetting = () => {
                    <Text 
                   style={styles.loginText}
                   >Fermer </Text> 
+            </TouchableOpacity>
+            <TouchableOpacity
+                   onPress={handleDeleteButton}
+                  activeOpacity={0.7}
+                  style={styles.loginBtnWrapper2}
+                  >
+                   <Text 
+                  style={styles.loginText}
+                  >Supprimer le compte</Text> 
             </TouchableOpacity>
             </View>   
 
