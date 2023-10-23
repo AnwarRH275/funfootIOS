@@ -52,7 +52,7 @@ export default function App() {
 
     const checkToken = async () => {
       try {
-      // await AsyncStorage.clear();
+       //await AsyncStorage.clear();
         const token = await AsyncStorage.getItem('token');
         //console.log(token)
         if (token) {

@@ -141,7 +141,7 @@ const ModelShowSetting = () => {
                     <Separator onPress={handleBackButton} />
                     <View style={styles.contentContainer} onPress={handleBackButton} >
                         
-                        <Text style={styles.headerText}>Information profile</Text>
+                        <Text style={styles.headerText}>Information profil</Text>
                       
                     </View>
             <View style={styles.containerInformation}>

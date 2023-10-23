@@ -57,7 +57,7 @@ const StartGame = ({setStartGame,banner,type}) => {
     }
    
     if(tel == null || tel == ""){ 
-      setDesciptionGame2('Compléter votre profil  pour\n bénéficier de vos gains !')
+      setDesciptionGame2('Compléter votre profil!')
     }else{
       setDesciptionGame2('');
     }

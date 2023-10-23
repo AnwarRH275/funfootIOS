@@ -32,13 +32,13 @@ const CustomDrawer = props => {
         <DrawerItemList {...props} />
       </View>
       <View style={styles.containerMedia}>
-              <TouchableOpacity style={styles.mediabtn} onPress={() => {Linking.openURL('https://web.facebook.com/profile.php?id=100091414601079');}}>
+              {/* <TouchableOpacity style={styles.mediabtn} onPress={() => {Linking.openURL('https://web.facebook.com/profile.php?id=100091414601079');}}>
                 <Image
                     style={styles.image}
                     source={logoFB}
                 />
 
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity  style={styles.mediabtn} onPress={() => {Linking.openURL('https://instagram.com/funfootworld');}}>
               <Image
                   style={styles.image}
