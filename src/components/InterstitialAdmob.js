@@ -7,7 +7,7 @@ import ads1 from '../assets/ads/ad1.png';
 
 
 
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6300362813805470/9752729993';
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6300362813805470/6769819291';
 
 
 
