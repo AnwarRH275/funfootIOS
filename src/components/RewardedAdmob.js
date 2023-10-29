@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ROUTES } from '../constants';
 import ads2 from '../assets/ads/ad2.png';
 
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6300362813805470/3929557676';
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6300362813805470/3601510729';
 
 const rewarded = RewardedAd.createForAdRequest(adUnitId, {
   requestNonPersonalizedAdsOnly: true,

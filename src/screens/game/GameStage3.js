@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import Switch2 from '../../components/Switch2';
 import { InterstitialAd, AdEventType, TestIds, InterstitialAdManager } from 'react-native-google-mobile-ads';
 
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6300362813805470/4857237369';
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6300362813805470/6769819291';
 const adsList=[0,1,2,3]
 const ads=[]
 adsList.forEach(()=>ads.push(InterstitialAd.createForAdRequest(adUnitId, {
