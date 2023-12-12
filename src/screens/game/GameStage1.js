@@ -85,7 +85,7 @@ const GameStage1 = ({route}) => {
 
 
         //console.log(response.data);
-        handleUpdate(response.data,username,'username')
+        // handleUpdate(response.data,username,'username')
        // console.log(matchs)
         setMatchs(response.data);
       } catch (error) {
@@ -97,14 +97,20 @@ const GameStage1 = ({route}) => {
   }, [token]);
 
   const handleResultUpdate = (id, newResult) => {
-    const updatedMatchs = matchs.map(match => {
-      if (match.id === id) {
-        return { ...match, resultat: newResult,etat:"Gains Potentiel 500 ER" };
-      }
-      return match;
-    });
-    setMatchs(updatedMatchs);
-  };
+    const _m = [...matchs]
+    const findIndex = _m.findIndex(m => m.id === id)
+    _m[findIndex] = { ..._m[findIndex], resultat: newResult,etat:"Gains Potentiel 500 ER" } 
+    setMatchs(_m)
+
+    // const updatedMatchs = matchs.map(match => {
+    //   if (match.id === id) {
+    //     return { ...match, resultat: newResult,etat:"Gains Potentiel 500 ER" };
+    //   }
+    //   return match;
+    // });
+    // setMatchs(updatedMatchs);
+  }
+  
 
 
   const handleUpdate = ( data,updatedValue, key) => {
@@ -119,50 +125,35 @@ const GameStage1 = ({route}) => {
     setMatchs(updatedData);
   };
 
-      const handlePress = async () => {
-       
+    const handlePress = async () => {
       
-        let validation = true;
-          
-        
-        for (let i = 0; i < matchs.length; i++) {
-          const item = matchs[i];
-          if (item.resultat == null || item.resultat === '') {
-            Alert.alert('Il faut compléter l\'ensemble de la grille !!');
-            validation = false;
-            break; // Exit the loop
-          }
-        }
-        
-        if(validation){
-         // handleUpdate(username,'username')
-          setScores(scores+1);
-          //console.log(matchs)
-          try {
-            setDisableButton(false);
-            const response = await axiosInstance.post('/mesgrid/mesgrids/1/'+username, matchs, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
-            //console.log(response.data);
+      const hasError = matchs.find(item => !item?.resultat)
+        if(hasError){
+        Alert.alert('Il faut compléter l\'ensemble de la grille !!');
+        return
+      }
+      // handleUpdate(username,'username')
+      setScores(scores+1);
+      //console.log(matchs)
+      try {
+        setDisableButton(false);
+        const response = await axiosInstance.post('/mesgrid/mesgrids/1/'+username, matchs, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        //console.log(response.data);
 
-            Alert.alert(' Accepté !');
-            ads[0].show();
-            setAdsCount(adsCount+1);
-            //navigation.goBack();
-            navigation.navigate(ROUTES.HOME);
-          } catch (error) {
-            console.error(error);
-          }
-          
-        }
-        
+        Alert.alert(' Accepté !');
+        ads[0].show();
+        setAdsCount(adsCount+1);
+        //navigation.goBack();
+        navigation.navigate(ROUTES.HOME);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-
-
-        
-      };
   return (
 
     <Background  path={path}>
@@ -173,11 +164,17 @@ const GameStage1 = ({route}) => {
           <FlatList
           data={matchs}
           renderItem={({ item,index }) => (
-            <Match key={item.id} number={item.id} equipe1={item.equipe1}  equipe2={item.equipe2} resultat={item.resultat} username={username}
-            onResultUpdate={newResult => handleResultUpdate(item.id, newResult)}
+            <Match 
+              key={item.id} 
+              number={item.id} 
+              equipe1={item.equipe1}  
+              equipe2={item.equipe2} 
+              resultat={item.resultat} 
+              username={username}
+              onResultUpdate={newResult => handleResultUpdate(item.id, newResult)}
             />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={item => `${item.id}`}
         />
       </View>
       {disableButton && (<View style={{alignItems:'center'}}>
