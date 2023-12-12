@@ -45,7 +45,7 @@ function GameNavigation() {
           options={{ tabBarStyle: { display: "none" }, title: "Partie Diamant", }}
           name={ROUTES.GAME_S4} component={GameStage4} />
 
-<Stack.Screen
+    <Stack.Screen
           options={{ tabBarStyle: { display: "none" }, title:null }}
           name={ROUTES.IADMOB} component={InterstitialAdmob} />
 
@@ -53,7 +53,7 @@ function GameNavigation() {
           options={{ tabBarStyle: { display: "none" }, title:null }}
           name={ROUTES.RADMOB} component={RewardedAdmob} />
 
-<Stack.Screen
+    <Stack.Screen
           options={{ tabBarStyle: { display: "none" }, title:null }}
           name={ROUTES.IADMOB2} component={InterstitialAdmob2} />
 
@@ -61,9 +61,17 @@ function GameNavigation() {
           options={{ tabBarStyle: { display: "none" }, title:null }}
           name={ROUTES.RADMOB2} component={RewardedAdmob2} />
 
-      <Stack.Screen
+    <Stack.Screen
+      name={ROUTES.CONSULTATION}
+      component={ConsulterMesGrilles}
+      options={({ route }) => ({
+        tabBarStyle: { display: route.params?.hideTabBar ? "none" : "flex" },
+        title: route.params?.customTitle || null,
+      })}
+    />
+      {/* <Stack.Screen
         options={{ tabBarStyle: { display: "none" }, title: null }}
-        name={ROUTES.CONSULTATION} component={ConsulterMesGrilles} />
+        name={ROUTES.CONSULTATION} component={ConsulterMesGrilles} /> */}
         <Stack.Screen
         options={{ tabBarStyle: { display: "none" }, title: null }}
         name={ROUTES.ImageDetail} component={ImageDetail} />

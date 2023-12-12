@@ -96,20 +96,28 @@ const GameStage1 = ({route}) => {
     setDisableButton(true);
   }, [token]);
 
-  const handleResultUpdate = (id, newResult) => {
-    const updatedMatchs = matchs.map(match => {
-      if (match.id === id) {
-        return { ...match, resultat: newResult,etat:"Gains Potentiel 500 ER" };
-      }
-      return match;
-    });
+  const handleResultUpdate = async (id, newResult) => {
+    console.log(id,newResult)
+    const updatedMatchs = [...matchs]
+    const isFound = updatedMatchs.findIndex(match => match.id == id)
+    console.log(isFound)
+    if(isFound){
+     
+    updatedMatchs[isFound] = { ... updatedMatchs[isFound], resultat: newResult,etat:"Gains Potentiels 500 ER " };
+    }
+    // const updatedMatchs = await matchs.map(match => {
+    // if (match.id === id) {
+    // return { ...match, resultat: newResult,etat:"Gains Potentiels 500 ER" };
+    // }
+    // return match;
+    // });
+    console.log(updatedMatchs)
     setMatchs(updatedMatchs);
-  };
+    };
 
-
-  const handleUpdate = ( data,updatedValue, key) => {
+  const handleUpdate = async ( data,updatedValue, key) => {
     //setMatchs([]);
-    const updatedData = data.map(item => {
+    const updatedData = await data.map(item => {
       
         return { ...item, [key]: updatedValue };
       

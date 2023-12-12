@@ -112,7 +112,7 @@ const ModelShowSetting = () => {
 
   const handleDeleteButton = async () => {
     const response = await axiosInstance.delete('/auth/delete/'+username);
-   
+    await AsyncStorage.clear();
     navigation.navigate(ROUTES.LOGIN);
   }
 
@@ -184,6 +184,34 @@ const ModelShowSetting = () => {
                
               />
             </View> 
+            <View style={styles.inputContainer}>
+            
+             
+            <PhoneNumberInput
+               
+               placeholder="Numéro de téléphone"
+               defaultCode="MA"
+               layout="first"
+               onChangeText={(text) => {setTel(text);
+                 concatener();
+               }}
+               onChangeFormattedText={(text) => setCodePays(text)}
+               value={tel}
+               autoFormat={true}
+               autoCapitalize="none"
+               returnKeyType="done"
+               containerStyle={{...styles.inputT,backgroundColor:COLORS.grayLight}}
+               textInputProps={{
+                 style: {
+                   fontSize: 15,
+                   fontWeight: 'bold',
+                   color: '#1D3557',
+                   paddingLeft: 10,
+                 },
+               }}
+             />
+
+           </View> 
 
             <View style={styles.inputContainer}>
 
@@ -198,34 +226,7 @@ const ModelShowSetting = () => {
               />
             </View> 
 
-            <View style={styles.inputContainer}>
-            
-             
-             <PhoneNumberInput
-                
-                placeholder="Numéro de téléphone"
-                defaultCode="MA"
-                layout="first"
-                onChangeText={(text) => {setTel(text);
-                  concatener();
-                }}
-                onChangeFormattedText={(text) => setCodePays(text)}
-                value={tel}
-                autoFormat={true}
-                autoCapitalize="none"
-                returnKeyType="done"
-                containerStyle={{...styles.inputT,backgroundColor:COLORS.grayLight}}
-                textInputProps={{
-                  style: {
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    color: '#1D3557',
-                    paddingLeft: 10,
-                  },
-                }}
-              />
-
-            </View> 
+         
 
       
  

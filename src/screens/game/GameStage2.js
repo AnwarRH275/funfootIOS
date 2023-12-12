@@ -92,10 +92,10 @@ const GameStage2 = ({route}) => {
     setDisableButton(true);
   }, [token]);
 
-  const handleResultUpdate = (id, newResult) => {
-    const updatedMatchs = matchs.map(match => {
+  const handleResultUpdate = async (id, newResult) => {
+    const updatedMatchs = await matchs.map(match => {
       if (match.id === id) {
-        return { ...match, resultat: newResult,etat:"Gains Potentiel 5 000 ER " };
+        return { ...match, resultat: newResult,etat:"Gains Potentiels 5 000 ER " };
       }
       return match;
     });
@@ -103,8 +103,8 @@ const GameStage2 = ({route}) => {
   };
 
 
-  const handleUpdate = ( updatedValue, key) => {
-    const updatedData = matchs.map(item => {
+  const handleUpdate = async ( updatedValue, key) => {
+    const updatedData = await matchs.map(item => {
       
         return { ...item, [key]: updatedValue };
       

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image ,Platform, Dimensions, Alert} from 'react-native'
+import { View, Text, StyleSheet, Image ,Platform, Dimensions, Alert, Linking} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import NavigationCat from './NavigationCat';
 import { COLORS, ROUTES } from '../constants';
@@ -55,6 +55,36 @@ const StartGame = ({setStartGame,banner,type}) => {
       //  console.error(error);
       
     }
+
+    const handleYes = async () => {
+      // Rediriger vers le lien YouTube
+      // Remplacez 'https://www.youtube.com/' par le lien de votre vidéo
+      const response = await axiosInstance.get('/LinkYoutube/AllLink');
+      const youtubeLink = response.data[0].linkYoutube;
+      console.log(youtubeLink)
+
+      Linking.openURL(youtubeLink);
+    };
+  
+    const handleNo = () => {
+      // Ne rien faire si l'utilisateur clique sur "Non"
+      // Vous pouvez ajouter du code supplémentaire ici si nécessaire
+    };
+    const showAlert = () => {
+      Alert.alert(
+        'Confirmation',
+        'Voulez-vous voir la vidéo explicative ?',
+        [
+          { text: 'Non', onPress: () => handleNo(), style: 'cancel' },
+          { text: 'Oui', onPress: () => handleYes() },
+        ],
+        { cancelable: false }
+      );
+    };  
+
+    if(scores == 0 ){
+      showAlert();
+    }
    
     if(tel == null || tel == ""){ 
       setDesciptionGame2('Compléter votre profil!')
@@ -73,6 +103,8 @@ const StartGame = ({setStartGame,banner,type}) => {
    
       <View style={styles.container}>
            {/* <BannerAdmob /> */}
+
+    
 
       {descriptionGame != '' && <InformationGame text={descriptionGame} size={50}/>  } 
     {type == 'stage1' && (

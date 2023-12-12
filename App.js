@@ -15,14 +15,14 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from './src/constants';
 import { Platform } from 'react-native';
 
-mobileAds()
-  .setRequestConfiguration({
-    // An array of test device IDs to add to the allow list.
-    testDeviceIdentifiers: ['1b3d94db-2260-48aa-8776-2abf866e5c37', 'OnePlus'],
-  })
-  .then(() => {
-    // Request config successfully set!
-  });
+// mobileAds()
+//   .setRequestConfiguration({
+//     // An array of test device IDs to add to the allow list.
+//     testDeviceIdentifiers: ['1b3d94db-2260-48aa-8776-2abf866e5c37', 'OnePlus'],
+//   })
+//   .then(() => {
+//     // Request config successfully set!
+//   });
 mobileAds()
   .initialize()
   .then(adapterStatuses => {
@@ -52,7 +52,7 @@ export default function App() {
 
     const checkToken = async () => {
       try {
-       //await AsyncStorage.clear();
+       await AsyncStorage.clear();
         const token = await AsyncStorage.getItem('token');
         //console.log(token)
         if (token) {
@@ -72,7 +72,7 @@ export default function App() {
           "token": token
         }).then((reponse)=>{
         })
-        // console.log(token+" ---");
+        console.log(token+" ---");
 
       })
     }else{

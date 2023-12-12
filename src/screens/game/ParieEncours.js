@@ -9,9 +9,24 @@ const ParieEncours = ({mesgrids}) => {
   const [selectedId, setSelectedId] = useState(null);
   const navigation = useNavigation();
 
-  const handlePress = (numero_grid,numero_match,categorie_match,username) => {
+  const handlePress = (numero_grid,numero_match,categorie_match,username,etat) => {
    
-    navigation.navigate('ConsulterMesGrilles',{numero_grid,numero_match,categorie_match,username});
+    let gains = ''
+    console.log(etat)
+    if(etat == 'Gains Potentiel 500 ER' || etat == 'Gains Potentiels 500 ER'){
+      gains = '500 ER';
+    }
+    if(etat == 'Gains Potentiel 100 000 ER' || etat == 'Gains Potentiels 100 000 ER'){
+      gains = '100 000 ER';
+    }
+    if(etat == 'Gains Potentiel 5 000 ER ' || etat == 'Gains Potentiels 5 000 ER '){
+      gains = '5 000 ER';
+    }
+    if(etat == 'Gains Potentiel 10 000 ER ' || etat == 'Gains Potentiels 10 000 ER '){
+      gains = '10 000 ER';
+    }
+
+    navigation.navigate('ConsulterMesGrilles',{numero_grid,numero_match,categorie_match,username,customTitle:categorie_match+" - "+gains});
 
   }
 
@@ -19,7 +34,7 @@ const ParieEncours = ({mesgrids}) => {
   const renderItem = item => {
     return (
         <TouchableOpacity key={item.numero_grid}  style={styles.container}
-        onPress={() => {handlePress(item.numero_grid,item.numero_match,item.categorie_match,item.username)}}
+        onPress={() => {handlePress(item.numero_grid,item.numero_match,item.categorie_match,item.username,item.etat)}}
         >
           
 

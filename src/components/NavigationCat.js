@@ -75,7 +75,7 @@ const NavigationCat = ({setStartGame}) => {
 
   const handleButtonClick = (numero_match,date,heure) => {
     if (clickCount < 100) {
-      setClickCount(clickCount + 1);
+      setClickCount(clickCount );
       handlePress(numero_match,date,heure);
       console.log(clickCount)
     } else {

@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 import {COLORS, ROUTES} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
@@ -20,7 +21,7 @@ import path from '../../assets/onboarding3.png';
 import axiosInstance from '../../config/instance';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from '../../context/AuthProvider';
-
+import Gif from 'react-native-gif';
 
 const Login = props => {
   // const {navigation} = props;
@@ -31,6 +32,8 @@ const Login = props => {
   const [hidePassword, setHidePassword] = useState(true);
   const [checked, setChecked] = useState(false);
   const { setScores,setUsername,setToken,setMesgrids,setCoupons } = useAuth();
+  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading2,setIsLoading2] = useState(false);
 
 
   const saveToken = async (token,usernames) => {
@@ -69,7 +72,17 @@ const Login = props => {
       console.error(error);
     }
   };
+  generateRandomString = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let randomString = '';
 
+    for (let i = 0; i < 7; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      randomString += characters[randomIndex];
+    }
+    return randomString
+   
+  };
 
   const handleSubmitAnonyme = async () => {
     const now = new Date();
@@ -77,10 +90,14 @@ const Login = props => {
     const month = (now.getMonth() + 1).toString().padStart(2, '0');
     const day = now.getDate().toString().padStart(2, '0');
     const milliseconds = now.getMilliseconds().toString();
+    const code = generateRandomString();
 
-    const uniqueString = year + month + day + milliseconds;
+
+    const uniqueString = year + month + day + milliseconds+code;
 
     const newUser = "user_"+uniqueString;
+    // console.log(newUser)
+    setIsLoading(true);
 
       const response = await axiosInstance.post('/auth/signup', {
         "username":newUser,
@@ -97,12 +114,13 @@ const Login = props => {
             "password": newUser
           });
 
-          console.log(newUser)
+          // console.log(newUser)
           
           if(response.data.acces_token){
             saveToken(response.data.acces_token,newUser);
-           
+            setIsLoading(false);
             navigation.navigate(ROUTES.HOME)
+            
           }else{
             alert(response.data.message)
           }
@@ -121,9 +139,10 @@ const Login = props => {
     console.log(usernameTmp)
     console.log(password)
     if(!usernameTmp && !password){
-      alert('Nom d\'utilisateur et mot de passe requis, connexion anonyme possible');
+      alert('Nom d\'utilisateur et mot de passe requis, connexion invité possible');
 
     }else{
+      setIsLoading2(true);
       try {
         const response = await axiosInstance.post('/auth/login', {
           "username":usernameTmp,
@@ -133,10 +152,12 @@ const Login = props => {
         
         if(response.data.acces_token){
           saveToken(response.data.acces_token,usernameTmp);
-         
+          setIsLoading2(false);
           navigation.navigate(ROUTES.HOME)
+        
         }else{
           alert(response.data.message)
+          setIsLoading2(false);
         }
         
       } catch (error) {
@@ -164,7 +185,9 @@ const Login = props => {
         <Background path={path}>
         <SafeAreaView style={styles.main}>
         <View style={styles.container}>
+     
           <View style={styles.wFull}>
+             <ScrollView>
             <View style={styles.row}>
               {/* <Logo width={55} height={55} style={styles.mr7} /> */}
               <Text style={styles.brandName}>FUN FOOT</Text>
@@ -206,8 +229,9 @@ const Login = props => {
                     style={styles.inputIcon}
                   />
               </TouchableOpacity>
+          
           </View>
-
+          </ScrollView>
        
           {/* <View style={styles.containerCheck}>
             <TouchableOpacity onPress={() => setChecked(!checked)}>
@@ -221,9 +245,27 @@ const Login = props => {
             {/* <View style={styles.loginBtnWrapper}
            
             > */}
-          
+            
+          {isLoading2 ? (
+            <TouchableOpacity
+                   onPress={handleSubmit}
+                  activeOpacity={0.7}
+                  style={styles.loginBtnWrapper}
+                  >
+                   <Text 
+                  style={styles.loginText}
+                  >Chargement ... </Text> 
+                 <View style={{}}>
+                 <Gif
+                   style={{width:20,flex:3}}
+                   source={require('../../assets/game/loading.gif')}
+                 />
+                  
+               </View>
               
-                <TouchableOpacity
+            </TouchableOpacity>
+          ):(
+            <TouchableOpacity
                    onPress={handleSubmit}
                   activeOpacity={0.7}
                   style={styles.loginBtnWrapper}
@@ -232,6 +274,9 @@ const Login = props => {
                   style={styles.loginText}
                   >SE CONNECTER</Text> 
                 </TouchableOpacity>
+          )}
+              
+                
       
             {/* </View> */}
 
@@ -241,7 +286,7 @@ const Login = props => {
                 navigation.navigate(ROUTES.FORGOT_PASSWORD)
               }
               style={styles.forgotPassBtn}>
-              <Text style={styles.forgotPassText}>Mot de passe oublié ?</Text>
+              {/* <Text style={styles.forgotPassText}>Mot de passe oublié ?</Text> */}
             </TouchableOpacity>
           </View>
 
@@ -249,16 +294,37 @@ const Login = props => {
       
             <View style={styles.forgotPassBtn}>
               
-                
+               {isLoading ? (
                 <TouchableOpacity
-                   onPress={handleSubmitAnonyme}
-                  activeOpacity={0.7}
-                  style={{...styles.connexionAnonyme,top:100,padding:20}}
-                  >
-                   <Text 
-                  style={styles.loginText}
-                  >CONNEXION ANONYME</Text> 
-                </TouchableOpacity>
+                // onPress={handleSubmitAnonyme}
+               activeOpacity={0.7}
+               style={{...styles.connexionAnonyme,top:100,padding:20}}
+               >
+                <Text 
+               style={styles.loginText}
+               >Chargement ... </Text> 
+                {/* <View style={{}}>
+                 <Gif
+                   style={{width:40}}
+                   source={require('../../assets/game/loading.gif')}
+                 />
+                  
+               </View> */}
+             </TouchableOpacity>
+                
+
+               ) : (
+                <TouchableOpacity
+                onPress={handleSubmitAnonyme}
+               activeOpacity={0.7}
+               style={{...styles.connexionAnonyme,top:100,padding:20}}
+               >
+                <Text 
+               style={styles.loginText}
+               >Connexion Invité</Text> 
+             </TouchableOpacity>
+               )} 
+               
       
             </View>
 {/* 
@@ -286,7 +352,7 @@ const Login = props => {
               </TouchableOpacity>
             </View> */}
 
-          <View style={styles.footer}>
+          <View style={{...styles.footer,position:'absolute'}}>
             <Text style={styles.footerText}> Vous n'avez pas de compte? </Text>
             
             <TouchableOpacity
@@ -473,7 +539,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flexDirection: 'row',
     position: 'absolute',
-    bottom: 70,
+    top: 550,
     
     
   },

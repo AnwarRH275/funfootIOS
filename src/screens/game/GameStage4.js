@@ -89,10 +89,10 @@ const GameStage4 = ({route}) => {
     setDisableButton(true);
   }, [token]);
 
-  const handleResultUpdate = (id, newResult) => {
-    const updatedMatchs = matchs.map(match => {
+  const handleResultUpdate = async (id, newResult) => {
+    const updatedMatchs = await matchs.map(match => {
       if (match.id === id) {
-        return { ...match, resultat: newResult,etat:"Gains Potentiel 100 000 ER" };
+        return { ...match, resultat: newResult,etat:"Gains Potentiels 100 000 ER" };
       }
       return match;
     });

@@ -7,7 +7,9 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
-  Alert
+  Alert,
+  ScrollView,
+  KeyboardAvoidingView
 } from 'react-native';
 import {COLORS, ROUTES} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
@@ -18,7 +20,7 @@ import Background from '../../components/Background';
 import Icon from 'react-native-vector-icons/Ionicons';
 import path from '../../assets/game/background3.jpg'
 import axiosInstance from '../../config/instance'
-
+import Gif from 'react-native-gif';
 
 
 const Register = () => {
@@ -32,37 +34,48 @@ const Register = () => {
   const [hideCPassword, setHideCPassword] = useState(true);
   const [checked, setChecked] = useState(false);
   const toastRef = useRef();
+  const [isLoading,setIsLoading] = useState(false);
+
 
   const handleSubmit=  async () => {
 
-    if(!username && !password && !email){
-      alert('Nom d\'utilisateur et mot de passe requis, connexion anonyme possible');
+    if(!username && !password && !email ){
+      
+      alert('Nom d\'utilisateur et mot de passe requis, connexion invité possible');
 
     }else{
-      try {
-        if(confirmePassword == password){
-          const response = await axiosInstance.post('/auth/signup', {
-            username,
-            email,
-            password
-          });
-  
-          
-          if(response.data.message == "User created succes"){
-            Alert.alert(response.data.message)
-              // toastRef.current.show('Account created!', 1000);
-             navigation.goBack();
+      if(!email.includes('@')){
+        alert('Email non valide !!');
+      }else{
+        setIsLoading(true);
+        try {
+          if(confirmePassword == password){
+            const response = await axiosInstance.post('/auth/signup', {
+              username,
+              email,
+              password
+            });
+    
+            
+            if(response.data.message == "User created succes"){
+              Alert.alert(response.data.message)
+                // toastRef.current.show('Account created!', 1000);
+               navigation.goBack();
+            }else{
+              Alert.alert(response.data.message);
+              setIsLoading(false)
+            }
           }else{
-            Alert.alert(response.data.message)
+            Alert.alert('Merci de bien saisir le même mot de passe')
+            setIsLoading(false)
           }
-        }else{
-          Alert.alert('Merci de bien saise le même mot de passe')
+          
+          
+        } catch (error) {
+          console.error(error);
         }
-        
-        
-      } catch (error) {
-        console.error(error);
       }
+  
       
     }
     
@@ -83,11 +96,14 @@ const Register = () => {
         />
         </View>
        ):(
-        <Background path={path}>
+  
+  <Background path={path}>
         <SafeAreaView style={styles.main}>
+      
         <View style={styles.container}>
+    
           <View style={styles.wFull}>
-            
+          <ScrollView>
             <View style={styles.row}>
               {/* <Logo width={55} height={55} style={styles.mr7} /> */}
               <Text style={styles.brandName}>FUN FOOT</Text>
@@ -125,6 +141,7 @@ const Register = () => {
                 onChangeText={password => setPassword(password)}
                 value={password}
               />
+         
               <TouchableOpacity onPress={() => setHidePassword(!hidePassword)}>
                   <Icon
                     name={hidePassword ? "ios-eye-off" : "ios-eye"}
@@ -135,15 +152,17 @@ const Register = () => {
               </TouchableOpacity>
           </View>
 
-
-          <View style={styles.inputContainer}>
+   
+          <View style={{...styles.inputContainer,marginBottom:50}}>
               <Icon name="lock-closed" size={25} color="#1D3557" style={styles.inputIcon} />
+           
               <TextInput
                 style={styles.inputT}
                 placeholder="Password"
                 secureTextEntry={hideCPassword}
                 onChangeText={password => setConfirmePassword(password)}
                 value={confirmePassword}
+                // onPressIn={handleTextInputClick}
               />
               <TouchableOpacity onPress={() => setHideCPassword(!hideCPassword)}>
                   <Icon
@@ -174,15 +193,32 @@ const Register = () => {
                   />
               </TouchableOpacity>
           </View> */}
-
-            <View style={styles.loginBtnWrapper}>
-          
-                <TouchableOpacity
-                  onPress={handleSubmit}
-                  activeOpacity={0.7}
-                  style={styles.loginBtn}>
-                  <Text style={styles.loginText}>SE CONNECTER</Text>
-                </TouchableOpacity>
+        </ScrollView>
+            <View 
+            >
+            {isLoading ? (
+                             <TouchableOpacity
+                             onPress={handleSubmit}
+                            activeOpacity={0.7}
+                            style={styles.loginBtnWrapper}
+                            >
+                             <Text 
+                            style={styles.loginText}
+                            >Chargement ... </Text> 
+                         
+                      </TouchableOpacity>
+            ):(
+              <TouchableOpacity
+              onPress={handleSubmit}
+             activeOpacity={0.7}
+             style={styles.loginBtnWrapper}
+             >
+              <Text 
+             style={styles.loginText}
+             >SE CONNECTER</Text> 
+           </TouchableOpacity>
+            )}
+               
       
             </View>
 
@@ -215,8 +251,11 @@ const Register = () => {
 
           
        </View>
+       
        </SafeAreaView>
        </Background>
+       
+      
        )}
       </View>
   );

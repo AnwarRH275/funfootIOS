@@ -7339,6 +7339,11 @@ react-native-elements@^3.4.3:
     react-native-ratings "8.0.4"
     react-native-size-matters "^0.3.1"
 
+react-native-flanimatedimage@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-flanimatedimage/-/react-native-flanimatedimage-0.4.0.tgz#f33ed462f96e5407c87acb15f2b7688f3c257f61"
+  integrity sha512-tAHvjPvmmZGS9h9MK4UfN8gycou7Sri/mxNG48XhCvq09qKxnSygMPDEo/IaTCddm7RM+gkYeBngnvx6y35z8A==
+
 react-native-gesture-handler@^2.9.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.9.0.tgz#2f63812e523c646f25b9ad660fc6f75948e51241"
@@ -7349,6 +7354,11 @@ react-native-gesture-handler@^2.9.0:
     invariant "^2.2.4"
     lodash "^4.17.21"
     prop-types "^15.7.2"
+
+react-native-gif@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-gif/-/react-native-gif-1.0.3.tgz#3d3e5347df3dc352e926c3dc9d83a2599c9e138c"
+  integrity sha512-UXeT8Gyff0ksCTiRYNZ3DqykevG1vZUQLi7oe9pB7yS4nSlMn11w22/nOcNCpHuZsaod86+xPi1MSxtNkFNJ5g==
 
 react-native-google-mobile-ads@^12.1.1:
   version "12.1.1"

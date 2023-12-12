@@ -27,9 +27,9 @@ const Match = ({number,equipe1,equipe2,resultat,onResultUpdate}) => {
             backgroundColor: selectedIndex===1 ? COLORS.primary : COLORS.gray
           },
           ]}
-          onPress={() => {
+          onPress={async () => {
             setSelectedIndex(1)
-            onResultUpdate("1") 
+           await onResultUpdate("1") 
           }}
         >
           <Text 
@@ -46,8 +46,8 @@ const Match = ({number,equipe1,equipe2,resultat,onResultUpdate}) => {
             backgroundColor: selectedIndex===0 ? COLORS.primary : COLORS.gray
           },
           ]}
-          onPress={() => {setSelectedIndex(0)
-            onResultUpdate("X") 
+          onPress={async () => {setSelectedIndex(0)
+            await onResultUpdate("X") 
           }}>
           <Text style={[styles.buttonText,
             {color:  selectedIndex ===0 ? COLORS.gray : COLORS.dark,}
@@ -61,9 +61,9 @@ const Match = ({number,equipe1,equipe2,resultat,onResultUpdate}) => {
             backgroundColor: selectedIndex===2 ? COLORS.primary : COLORS.gray
           },
           ]}
-          onPress={() => {
+          onPress={ async () => {
             setSelectedIndex(2)
-            onResultUpdate("2") 
+           await onResultUpdate("2") 
             
             
           }}>

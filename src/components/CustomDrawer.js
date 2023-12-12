@@ -45,7 +45,7 @@ const CustomDrawer = props => {
                   source={logoInsta}
               />
               </TouchableOpacity>
-              <TouchableOpacity  style={styles.mediabtn} onPress={() => {Linking.openURL('https://www.youtube.com/@FunFoot-fc6xs/featured');}}>
+              <TouchableOpacity  style={styles.mediabtn} onPress={() => {Linking.openURL('https://www.youtube.com/watch?v=1kBTwro8uKs');}}>
               <Image
                   style={styles.image}
                   source={logoApple}

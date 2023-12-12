@@ -36,7 +36,7 @@ const Switch = ({typeGame,resultat,setSelectSection}) => {
   >
     <Text style={[styles.text,
     {color:  selectedIndex ? COLORS.dark : COLORS.gray,}
-    ]}>Resultats</Text>
+    ]}>Résultats</Text>
   </TouchableOpacity>
   </View>      
 
