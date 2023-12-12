@@ -1,16 +1,10 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { COLORS } from '../constants';
 
 
-const Match = ({number,equipe1,equipe2,resultat,onResultUpdate}) => {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
-
-  const handlerValidation = ()=>{
+const Match = ({number,equipe1,equipe2,resultat = -1,onResultUpdate}) => {
   
-      console.log('vvvv')
-    
-  }
   return (
     <View style={styles.container}>
       <View style={styles.containerRow}> 
@@ -24,17 +18,14 @@ const Match = ({number,equipe1,equipe2,resultat,onResultUpdate}) => {
           [
             styles.button,
             {
-            backgroundColor: selectedIndex===1 ? COLORS.primary : COLORS.gray
+            backgroundColor: resultat==="1" ? COLORS.primary : COLORS.gray
           },
           ]}
-          onPress={() => {
-            setSelectedIndex(1)
-            onResultUpdate("1") 
-          }}
+          onPress={() => {onResultUpdate("1")}}
         >
           <Text 
           style={[styles.buttonText,
-            {color:  selectedIndex ===1 ? COLORS.gray : COLORS.dark,}
+            {color:  resultat === "1" ? COLORS.gray : COLORS.dark,}
             ]}
           >1</Text>
         </TouchableOpacity>
@@ -43,14 +34,14 @@ const Match = ({number,equipe1,equipe2,resultat,onResultUpdate}) => {
           [
             styles.button,
             {
-            backgroundColor: selectedIndex===0 ? COLORS.primary : COLORS.gray
+            backgroundColor: resultat=='X' ? COLORS.primary : COLORS.gray
           },
           ]}
-          onPress={() => {setSelectedIndex(0)
+          onPress={() => {
             onResultUpdate("X") 
           }}>
           <Text style={[styles.buttonText,
-            {color:  selectedIndex ===0 ? COLORS.gray : COLORS.dark,}
+            {color:  resultat === "X" ? COLORS.gray : COLORS.dark,}
             ]}>X</Text>
         </TouchableOpacity>
         <TouchableOpacity 
@@ -58,17 +49,16 @@ const Match = ({number,equipe1,equipe2,resultat,onResultUpdate}) => {
           [
             styles.button,
             {
-            backgroundColor: selectedIndex===2 ? COLORS.primary : COLORS.gray
+            backgroundColor: resultat==="2" ? COLORS.primary : COLORS.gray
           },
           ]}
           onPress={() => {
-            setSelectedIndex(2)
             onResultUpdate("2") 
             
             
           }}>
           <Text style={[styles.buttonText,
-            {color:  selectedIndex ===2 ? COLORS.gray : COLORS.dark,}
+            {color:  resultat ==="2" ? COLORS.gray : COLORS.dark,}
             ]}>2</Text>
         </TouchableOpacity>
 
@@ -123,4 +113,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Match;
+export default  memo(Match);
